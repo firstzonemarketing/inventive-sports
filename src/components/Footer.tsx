@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowUp, ShieldCheck } from 'lucide-react';
 import { scrollEngine } from '../lib/scroll';
 import { useCms } from '../lib/cms';
+import { assetUrl } from '../lib/assets';
 
 export const Footer: React.FC = () => {
   const { navigate, settings, disciplines } = useCms();
@@ -32,7 +33,8 @@ export const Footer: React.FC = () => {
             >
               <img
                 src={
-                  settings.logo_url || '/images/brand/inventive-sports-logo.png'
+                  settings.logo_url ||
+                  assetUrl('/images/brand/inventive-sports-logo.png')
                 }
                 alt="Inventive Sports Official Logo"
                 className="h-12 sm:h-14 w-auto object-contain"

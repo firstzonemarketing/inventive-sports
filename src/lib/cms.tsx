@@ -17,6 +17,7 @@ import {
   CmsProduct,
 } from '../content';
 import { scrollEngine } from './scroll';
+import { stripBasePath, withBasePath } from './assets';
 
 export interface CmsContextValue {
   path: string;
@@ -50,7 +51,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [path, setPath] = useState<string>(() => {
     if (typeof window === 'undefined') return '/';
-    return window.location.pathname || '/';
+    return stripBasePath(window.location.pathname || '/');
   });
 
   const [settings, setSettings] = useState<CmsSettings>(
@@ -128,7 +129,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const handlePopState = () => {
-      setPath(window.location.pathname || '/');
+      setPath(stripBasePath(window.location.pathname || '/'));
       scrollEngine.scrollTo(0);
     };
     window.addEventListener('popstate', handlePopState);
@@ -142,9 +143,13 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
     const [pathname, hash] = to.split('#');
-    const cleanPath = pathname || '/';
-    if (cleanPath !== window.location.pathname) {
-      window.history.pushState({}, '', to);
+    const cleanPath = stripBasePath(pathname || '/');
+    const currentPath = stripBasePath(window.location.pathname || '/');
+    if (cleanPath !== currentPath) {
+      const targetUrl = hash
+        ? `${withBasePath(cleanPath)}#${hash}`
+        : withBasePath(cleanPath);
+      window.history.pushState({}, '', targetUrl);
       setPath(cleanPath);
       if (hash) {
         window.setTimeout(() => scrollEngine.scrollTo(`#${hash}`, -76), 120);

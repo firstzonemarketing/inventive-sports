@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Menu, X, ArrowUpRight, ChevronDown, ShieldCheck } from 'lucide-react';
 import { scrollEngine } from '../lib/scroll';
 import { useCms } from '../lib/cms';
+import { assetUrl } from '../lib/assets';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -100,7 +101,10 @@ export const Header: React.FC = () => {
           aria-label="Inventive Sports & Performing Arts — Home"
         >
           <img
-            src={settings.logo_url || '/images/brand/inventive-sports-logo.png'}
+            src={
+              settings.logo_url ||
+              assetUrl('/images/brand/inventive-sports-logo.png')
+            }
             alt="Inventive Sports Official Logo"
             className="h-10 sm:h-12 w-auto object-contain"
           />
@@ -246,7 +250,8 @@ export const Header: React.FC = () => {
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E7E7E7]">
             <img
               src={
-                settings.logo_url || '/images/brand/inventive-sports-logo.png'
+                settings.logo_url ||
+                assetUrl('/images/brand/inventive-sports-logo.png')
               }
               alt="Inventive Sports Official Logo"
               className="h-9 w-auto object-contain"

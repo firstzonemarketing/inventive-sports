@@ -1,4 +1,5 @@
 import { clamp, easeInOutCubic, easeOutCubic, invLerp } from './math';
+import { assetUrl } from './assets';
 
 export type SportStageId = 'cricket' | 'football' | 'basketball' | 'chess';
 export type ChapterId = 'hero' | SportStageId;
@@ -21,7 +22,7 @@ function buildNumericSequence(
   for (let i = 1; i <= count; i += 1) {
     const num = String(i).padStart(3, '0');
     frames.push({
-      url: `/sequences/${folder}/ezgif-frame-${num}.jpg`,
+      url: assetUrl(`/sequences/${folder}/ezgif-frame-${num}.jpg`),
       folder,
       folderFrame: i,
     });

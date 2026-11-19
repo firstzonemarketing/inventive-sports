@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, CheckCircle2, AlertCircle, MapPin, Phone, Mail } from 'lucide-react';
 import { useCms } from '../lib/cms';
+import { assetUrl } from '../lib/assets';
 import { scrollEngine } from '../lib/scroll';
 
 interface JoinAcademyProps {
@@ -176,7 +177,7 @@ export const JoinAcademy: React.FC<JoinAcademyProps> = ({
         >
           <div className="relative aspect-[16/10] sm:aspect-[21/9] w-full overflow-hidden">
             <img
-              src="/images/hero/join-cta.jpg"
+              src={assetUrl('/images/hero/join-cta.jpg')}
               alt="Athletes training together at Inventive Sports & Performing Arts"
               loading="lazy"
               className="w-full h-full object-cover object-center opacity-70"

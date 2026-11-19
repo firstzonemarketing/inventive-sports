@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useCms } from '../lib/cms';
+import { assetUrl } from '../lib/assets';
 import { CinematicSportsStage } from './CinematicSportsStage';
 
 interface HeroRevealProps {
@@ -26,7 +27,7 @@ export const HeroReveal: React.FC<HeroRevealProps> = ({ reducedMotion }) => {
           <div data-reveal className="lg:col-span-6 relative">
             <div className="relative aspect-[16/11] w-full bg-[#FFFFFF] border border-[#E7E7E7] p-2 shadow-[0_16px_44px_rgba(21,21,21,0.08)]">
               <img
-                src="/images/about/multi.png"
+                src={assetUrl('/images/about/multi.png')}
                 alt="Multidisciplinary training at Inventive Sports Academy"
                 loading="lazy"
                 className="w-full h-full object-cover object-center"

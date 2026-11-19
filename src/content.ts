@@ -1,3 +1,5 @@
+import { assetUrl } from './lib/assets';
+
 export interface CmsSettings {
   logo_url: string;
   site_name: string;
@@ -144,7 +146,7 @@ export interface SkillBenefitItem {
   description: string;
 }
 
-export const INITIAL_CMS_DATA = {
+const RAW_CMS_DATA = {
   settings: {
     logo_url: '/images/brand/inventive-sports-logo.png',
     site_name: 'Inventive Sports & Performing Arts',
@@ -958,3 +960,25 @@ export const INITIAL_CMS_DATA = {
     },
   ],
 };
+
+function resolveCmsAssets<T>(value: T): T {
+  if (typeof value === 'string') {
+    if (value.startsWith('/images/') || value.startsWith('/sequences/')) {
+      return assetUrl(value) as T;
+    }
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => resolveCmsAssets(item)) as T;
+  }
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      out[k] = resolveCmsAssets(v);
+    }
+    return out as T;
+  }
+  return value;
+}
+
+export const INITIAL_CMS_DATA = resolveCmsAssets(RAW_CMS_DATA);
